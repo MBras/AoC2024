@@ -29,9 +29,29 @@ def checkpages(pages):
     return True
 
 def reorder(pages):
-    temppages = pages
+    # list all pages todo
+    todo = list(pages)
     
-    return temppages
+    # start with a first page
+    pages = [todo.pop()]
+
+    # do this for all remaining pages
+    while len(todo) > 0:
+        # get next page to do
+        page = todo.pop()
+
+        # push it onto the stack of pages
+        pages.append(page)
+
+        # while shhifting the page to the left, check if it's correct
+        while not checkpages(pages):
+            # get current locationin the stack of pages
+            i = pages.index(page)
+
+            # shift it one space to the left
+            pages[i - 1], pages[i] = pages[i], pages[i - 1]
+
+    return pages
 
 # process lines containing page order
 step = 0
