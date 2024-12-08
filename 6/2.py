@@ -65,10 +65,11 @@ def checkpathing(guard, lines):
         
             # empty space, move there
             elif lines[new[1]][new[0]] in [".", "X"]:
-                temppath = [guard, new]
-                if [guard, new] in [path[i: 2 + i] for i in xrange(len(path))]:
-                    #printmap(lines)
-                    return "looping"
+                if lines[new[1]][new[0]] == "X":
+                    temppath = [guard, new]
+                    if [guard, new] in [path[i: 2 + i] for i in xrange(len(path))]:
+                        #printmap(lines)
+                        return "looping"
                 guard = list(new)
 
         except:
