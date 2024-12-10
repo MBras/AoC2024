@@ -29,7 +29,9 @@ def calibrate(result, temp, values):
         else:
             return False
     else: # more values to go
-        if calibrate(result, temp + values[0], values[1:]):
+        if temp >= result:
+            return False
+        elif calibrate(result, temp + values[0], values[1:]):
             return True
         elif calibrate(result, temp * values[0], values[1:]):
             return True
