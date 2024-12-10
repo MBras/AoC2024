@@ -20,25 +20,17 @@ def calibrate(result, temp, values):
     if len(values) == 1: # this is the last value to check
         value = values[0]
         # try adition
-        if temp + value == result:
-            return True
-        elif temp * value == result:
-            return True
-        elif int(str(temp) + str(value)) == result:
-            return True
+        if temp + value == result or temp * value == result or int(str(temp) + str(value)) == result:
+            return result
         else:
-            return False
+            return 0
     else: # more values to go
         if temp >= result:
-            return False
-        elif calibrate(result, temp + values[0], values[1:]):
-            return True
-        elif calibrate(result, temp * values[0], values[1:]):
-            return True
-        elif calibrate(result, int(str(temp) + str(values[0])), values[1:]):
-            return True
+            return 0
+        elif calibrate(result, temp + values[0], values[1:]) or calibrate(result, temp * values[0], values[1:]) or calibrate(result, int(str(temp) + str(values[0])), values[1:]):
+            return result
         else:
-            return False
+            return 0
 
 
 calibration = 0
@@ -47,6 +39,5 @@ for line in lines:
     matches = [int(match) for match in re.split(r"[: ]+", line)]
         
     # outcome is the first match and we start with the first value 
-    if calibrate(matches[0], matches[1], matches[2:]):
-        calibration += matches[0]
+    calibration +=  calibrate(matches[0], matches[1], matches[2:])
 print "Calibration: " + str(calibration)
