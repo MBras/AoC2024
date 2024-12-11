@@ -2,12 +2,15 @@ import sys
 import re
 
 # Check if the filename is provided
-if len(sys.argv) < 2:
-    print("Usage: python 1.py <filename>")
+if len(sys.argv) < 3:
+    print("Usage: python 1.py <filename> <blinks>")
     sys.exit(1)
 
 # Get the filename from the command line arguments
 filename = sys.argv[1]
+
+# get number of blinks from command line
+blinks = int(sys.argv[2])
 
 # read lines, remove linefeed
 with open(filename, "r") as file:
@@ -52,6 +55,4 @@ def blink(s, b):
         # and return it
         return result 
 
-
-blinks = 75 
 print "Part 2: " + str(sum([blink(stone, blinks) for stone in stones]))
